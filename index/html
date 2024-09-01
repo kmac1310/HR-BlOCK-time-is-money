@@ -1,0 +1,37 @@
+<div style="font-family: Arial, sans-serif; text-align: center; background-color: black; color: white; padding: 20px; max-width: 500px; margin: 0 auto;">
+  <h2 style="font-size: 24px; margin-bottom: 20px;">H&R Block 1440TIME Revenue Clock</h2>
+  <div id="revenue-clock" style="font-size: 36px; font-weight: bold; margin-bottom: 10px;">$0</div>
+  <div style="font-size: 18px; margin-bottom: 10px;">Revenue per minute: $25,744</div>
+  <div id="time-left" style="font-size: 48px; font-weight: bold; margin-bottom: 10px;">73800:00</div>
+  <div style="font-size: 18px; margin-bottom: 20px;">Minutes left in tax season</div>
+  <div id="cost-of-minute" style="font-size: 24px; color: #ff4500; margin-bottom: 20px;">Cost of this minute: $25,744</div>
+  <div style="font-size: 24px; color: yellow; margin-bottom: 20px;">You got the "time" to do it!</div>
+  <div style="font-size: 24px; color: #4299e1;">1440TIME(TM)</div>
+</div>
+
+<script type="text/javascript">
+// <![CDATA[
+const revenuePerMinute = 25744;
+let totalRevenue = 0;
+let timeLeft = 73800 * 60; // 73,800 minutes in seconds
+
+function updateClock() {
+    totalRevenue += revenuePerMinute / 60;
+    timeLeft--;
+
+    document.getElementById('revenue-clock').textContent = '$' + totalRevenue.toLocaleString('en-US', {maximumFractionDigits: 0});
+    
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    document.getElementById('time-left').textContent = `${minutes.toString().padStart(5, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+    if (timeLeft > 0) {
+        setTimeout(updateClock, 1000);
+    } else {
+        document.getElementById('time-left').textContent = "Tax Season Over!";
+    }
+}
+
+updateClock();
+// ]]>
+</script>
